@@ -47,11 +47,11 @@ cd $target_sw/emacs-23.2
 
 # create configuration symbol link
 cd ~
-ln -s  nfs/dev_env/.emacs .emacs
-ln -s  nfs/dev_env/.emacs.d .emacs.d
-ln -s  nfs/dev_env/.inputrc .inputrc
-ln -s  nfs/dev_env/.bashrc .bashrc
-ln -s  nfs/dev_env/.gitconfig .gitconfig
+ln -s  nfs/dev_env/sel-conf/emacs .emacs
+ln -s  nfs/dev_env/sel-conf/emacs.d .emacs.d
+ln -s  nfs/dev_env/sel-conf/inputrc .inputrc
+ln -s  nfs/dev_env/sel-conf/bashrc .bashrc
+ln -s  nfs/dev_env/sel-conf/gitconfig .gitconfig
 
 # add dnc
 echo "nameserver 10.32.97.148" >> /etc/resolv.conf
