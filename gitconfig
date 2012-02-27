@@ -1,0 +1,19 @@
+[user]
+	email = shawn.x.z@gmail.com
+	name = shawn
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	mg = merge
+	sl = shortlog
+	cfg = config --list
+	tree = log --graph --all --pretty=format:\"%h %s\"
+	discard = reset --hard
+[color]
+	status = auto
+	branch = auto
+	ui = auto
+[http]
+	sslVerify = false
