@@ -4,6 +4,7 @@ nfs_target="10.32.119.225:/home/shawn/share"
 target_sw=$user_root/xiang/SW
 src_host="root@10.32.119.231"
 repo_server="10.5.114.25"
+gui_dev_dir=/usr/local/maui/gui
 
 mkdir $nfs_mp
 mount -t nfs $nfs_target $nfs_mp
@@ -44,6 +45,14 @@ scp -r $src_host:/root/install_dev_env/SW/emacs-23.2 $target_sw/
 cd $target_sw/emacs-23.2
 ./configure && make && make install
 
+# copy ctags from src_host and install
+scp -r $src_host:/root/install_dev_env/SW/ctags-5.8 $target_sw/
+cd $target_sw/ctags-5.8
+./configure && make && make install
+
+# create tag file
+cd $gui_dev_dir
+ctags -a -e -f TAGS --tag-relative -R app lib vendor public/javascripts/
 
 # create configuration symbol link
 cd ~
