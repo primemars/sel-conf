@@ -13,25 +13,24 @@
 
 ;;;; Basic customize
 (setq tab-width 2)
-
 (setq make-backup-files nil)
-
 ;(menu-bar-mode nil)
-
-(fset 'yes-or-no-p 'y-or-n-p)
+(setq fill-column 70)
+(auto-fill-mode)
 
 (autoload 'ediff-buffers "ediff" "Intelligent Emacs interface to diff" t)
 (autoload 'ediff-files "ediff" "Intelligent Emacs interface to diff" t)
 (autoload 'ediff-files-remote "ediff"
   "Intelligent Emacs interface to diff")
 
+;; make #! scripts executable after saving them
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 ;; Meta
 (global-set-key "\M- " 'set-mark-command)
 (global-set-key "\M-\C-r" 'query-replace)
 (global-set-key "\M-r" 'replace-string)
 (global-set-key "\M-g" 'goto-line)
-(global-set-key "\M-h" 'help-command)
-
 
 (transient-mark-mode 1)
 (setq mark-even-if-inactive t)
@@ -79,14 +78,6 @@
 ;; add line number
 (require 'setnu+)
 
-;;set fill column
-(setq fill-column 70)
-
-;;enable fill mode
-(auto-fill-mode)
-
-(require 'pabbrev)
-
 (add-hook 'dired-load-hook
    (function (lambda() (load "dired-x"))))
 
@@ -97,31 +88,12 @@
              (setq scheme-mit-dialect nil)
              ))
 
-
-;; Load packages
 (require 'desktop)
-(require 'tar-mode)
-
-;; Auto font lock mode
-(defvar font-lock-auto-mode-list
-  (list 'c-mode 'c++-mode 'c++-c-mode 'emacs-lisp-mode 'lisp-mode 'perl-mode 'scheme-mode 'python-mode 'php-mode 'ruby-mode)
-  "List of modes to always start in font-lock-mode")
-
-(defun font-lock-auto-mode-select ()
-  "Automatically select font-lock-mode if the current major mode is in font-lock-auto-mode-list"
-  (if (memq major-mode font-lock-auto-mode-list)
-      (progn
-    (font-lock-mode t))
-    )
-  )
 
 ;; New dabbrev stuff
 (setq dabbrev-always-check-other-buffers t)
 (setq dabbrev-abbrev-char-regexp "\\sw\\|\\s_")
-(add-hook 'emacs-lisp-mode-hook
-      '(lambda ()
-         (set (make-local-variable 'dabbrev-case-fold-search) nil)
-         (set (make-local-variable 'dabbrev-case-replace) nil)))
+
 (add-hook 'text-mode-hook
       '(lambda ()
          (set (make-local-variable 'dabbrev-case-fold-search) t)
@@ -129,93 +101,12 @@
          (setq truncate-partial-width-windows t)
          (set (make-local-variable 'dabbrev-case-replace) t)))
 
-;; Scheme mode...
-(defun my-scheme-mode-hook ()
-  (define-key scheme-mode-map "\C-m" 'reindent-then-newline-and-indent))
-
-;; Emacs-Lisp mode...
-(defun my-lisp-mode-hook ()
-  (define-key lisp-mode-map "\C-m" 'reindent-then-newline-and-indent)
-  (define-key lisp-mode-map "\C-i" 'lisp-indent-line)
-  (define-key lisp-mode-map "\C-j" 'eval-print-last-sexp))
-
-;; Add all of the hooks...
-(add-hook 'scheme-mode-hook 'my-scheme-mode-hook)
-(add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
-(add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
-
 ;; Complement to next-error
 (defun previous-error (n)
   "Visit previous compilation error message and corresponding source code."
   (interactive "p")
   (next-error (- n)))
 
-;; Elisp archive searching
-(autoload 'format-lisp-code-directory "lispdir" nil t)
-(autoload 'lisp-dir-apropos "lispdir" nil t)
-(autoload 'lisp-dir-retrieve "lispdir" nil t)
-(autoload 'lisp-dir-verify "lispdir" nil t)
-
-;; Font lock mode
-(defun my-make-face (face color &optional bold)
-  "Create a face from a color and optionally make it bold"
-  (make-face face)
-  (copy-face 'default face)
-  (set-face-foreground face color)
-  (if bold (make-face-bold face))
-  )
-
-(if (eq window-system 'x)
-    (progn
-      (my-make-face 'blue "blue")
-      (my-make-face 'red "red")
-      (my-make-face 'green "dark green")
-      (setq font-lock-comment-face 'blue)
-      (setq font-lock-string-face 'bold)
-      (setq font-lock-type-face 'bold)
-      (setq font-lock-keyword-face 'bold)
-      (setq font-lock-function-name-face 'red)
-      (setq font-lock-doc-string-face 'green)
-      (add-hook 'find-file-hooks 'font-lock-auto-mode-select)
-
-      (setq baud-rate 1000000)
-      (global-set-key "\C-cmm" 'menu-bar-mode)
-      (global-set-key "\C-cms" 'scroll-bar-mode)
-      (global-set-key [backspace] 'backward-delete-char)
-                    ;      (global-set-key [delete] 'delete-char)
-      (standard-display-european t)
-      (load-library "iso-transl")))
-
-;; X11 or PC using direct screen writes
-(if window-system
-    (progn
-      ;;      (global-set-key [M-f1] 'hilit-repaint-command)
-      ;;      (global-set-key [M-f2] [?\C-u M-f1])
-      (setq hilit-mode-enable-list
-        '(not text-mode c-mode c++-mode emacs-lisp-mode lisp-mode
-          scheme-mode)
-        hilit-auto-highlight nil
-        hilit-auto-rehighlight 'visible
-        hilit-inhibit-hooks nil
-        hilit-inhibit-rebinding t)
-      (require 'hilit19)
-      (require 'paren))
-  (setq baud-rate 2400)         ; For slow serial connections
-  )
-
-;; Under UNIX
-(if (not (equal system-type 'ms-dos))
-    (progn
-      (if first-time
-      (server-start))))
-
-;; Add any face changes here
-(add-hook 'term-setup-hook 'my-term-setup-hook)
-(defun my-term-setup-hook ()
-  (if (eq window-system 'pc)
-      (progn
-        (set-face-background 'default "red")
-    )))
 
 ;; Restore the "desktop" - do this as late as possible
 (if first-time
@@ -223,42 +114,13 @@
       (desktop-load-default)
       (desktop-read)))
 
-;; Indicate that this file has been read at least once
-(setq first-time nil)
-
 
 ;;; Emacs/W3 Configuration
 (setq load-path (cons "/usr/share/emacs/site-lisp" load-path))
 (condition-case () (require 'w3-auto "w3-auto") (error nil))
 
-;;(setq load-path (cons "~/.emacs.d/emacs-rails" load-path))
-(defun try-complete-abbrev (old)
-  (if (expand-abbrev) t nil))
 
-(setq hippie-expand-try-functions-list
-      '(try-complete-abbrev
-        try-complete-file-name
-        try-expand-dabbrev))
-
-;; make #! scripts executable after saving them
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(egg-enable-tooltip t)
- '(safe-local-variable-values (quote ((todo-categories "" "today" "this week" "this month" "this year") (todo-categories "today" "this week" "this month" "this year") (todo-categories "" "" "" "" "today" "this week" "y" "this month" "this year" "word" "personal" "work") (todo-categories "word" "personal" "work") (todo-categories "personal" "work"))))
- '(truncate-lines nil)
- '(truncate-partial-width-windows nil))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
+;; javascript mode
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -277,8 +139,8 @@
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t) 
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
-;; git mode
-(require 'git)
+
+
 
 ;; Function keys
 (global-set-key [f1] 'revert-buffer)
@@ -300,12 +162,9 @@
 
 ;; No need to debug anything now
 (setq debug-on-error nil)
+;; Indicate that this file has been read at least once
+(setq first-time nil)
+
 
 ;; All done
 (message "All done, %s%s" (user-login-name) ".")
-
-(put 'downcase-region 'disabled nil)
-
-(put 'upcase-region 'disabled nil)
-
-(put 'scroll-left 'disabled nil)
