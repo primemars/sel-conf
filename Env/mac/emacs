@@ -8,6 +8,24 @@
 ;;;; shutdown the begining of log
 (setq inhibit-startup-message t)
 
+;; Function keys
+(global-set-key [f1] 'revert-buffer)
+(global-set-key [f2] 'info)
+(global-set-key [f3] 'repeat-complex-command)
+(global-set-key [f4] 'advertised-undo)
+(global-set-key [f5] 'eval-current-buffer)
+(global-set-key [f6] 'buffer-menu)
+(global-set-key [f7] 'other-window)
+(global-set-key [f8] 'find-file)
+(global-set-key [f9] 'previous-error)
+(global-set-key [f10] 'next-error)
+(global-set-key [f11] 'compile)
+(global-set-key [f12] 'grep)
+
+; change c-w
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+
 ;; Simple Lisp Files
 (add-to-list 'load-path "~/.emacs.d/.site-lisp/el")
 
@@ -119,6 +137,11 @@
 (setq load-path (cons "/usr/share/emacs/site-lisp" load-path))
 (condition-case () (require 'w3-auto "w3-auto") (error nil))
 
+;; yari, ri in buffer
+(require 'yari)
+(defun ri-bind-key ()
+   (local-set-key [f2] 'yari))
+(add-hook 'ruby-mode-hook 'ri-bind-key)
 
 ;; javascript mode
 (autoload 'js2-mode "js2" nil t)
@@ -138,27 +161,6 @@
 ;; markdown
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t) 
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-
-
-
-
-;; Function keys
-(global-set-key [f1] 'revert-buffer)
-(global-set-key [f2] 'info)
-(global-set-key [f3] 'repeat-complex-command)
-(global-set-key [f4] 'advertised-undo)
-(global-set-key [f5] 'eval-current-buffer)
-(global-set-key [f6] 'buffer-menu)
-(global-set-key [f7] 'other-window)
-(global-set-key [f8] 'find-file)
-(global-set-key [f9] 'previous-error)
-(global-set-key [f10] 'next-error)
-(global-set-key [f11] 'compile)
-(global-set-key [f12] 'grep)
-
-; change c-w
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
 
 ;; No need to debug anything now
 (setq debug-on-error nil)
