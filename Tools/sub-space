@@ -1,0 +1,5 @@
+#!/Users/shawn/.rvm/rubies/ruby-1.9.2-p290/bin/ruby
+
+# Replace space from file name with "_" 
+puts ARGV[0]
+File.rename(ARGV[0], ARGV[0].gsub(" ", "_"))

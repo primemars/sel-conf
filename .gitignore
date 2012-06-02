@@ -1,3 +1,4 @@
 mars_tr.bak.trx
-ReviewActions.xml
+Env/ReviewActions*.xml
 emacs.d/auto-save-list/*
+.DS_Store

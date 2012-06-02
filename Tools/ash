@@ -1,0 +1,10 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+set ip [lindex $argv 0]
+
+spawn ssh root@10.32.119.$ip
+expect -exact "root@10.32.119.$ip's password: "
+send -- "1\r"
+interact
+
