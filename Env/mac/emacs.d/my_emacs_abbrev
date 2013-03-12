@@ -1,0 +1,11 @@
+(define-abbrev-table 'global-abbrev-table '(
+    ;; math/unicode symbols
+    ("8xz" "Xiang Zhang")
+    ("8tag" "ctags -a -e -f TAGS --tag-relative -R .")
+    ))
+
+;; stop asking whether to save newly added abbrev when quitting emacs
+(setq save-abbrevs nil)
+
+;; turn on abbrev mode globally
+(setq-default abbrev-mode t)

@@ -24,4 +24,5 @@ export PATH=$PATH:$HOME/local/node/bin:/usr/bin:$HOME/Dropbox/selF/Tools
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoreboth
-export EDITOR="ec"
+export EDITOR='emacsclient -t -a ""'
+export PS1='\w$ '

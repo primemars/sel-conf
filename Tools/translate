@@ -1,0 +1,21 @@
+#!/Users/shawn/.rvm/rubies/ruby-1.9.2-p290/bin/ruby
+require 'uri'
+require 'net/http'
+require 'ruby-debug'
+# The google translate API can be found here: 
+# http://code.google.com/apis/ajaxlanguage/documentation/#Examples
+lang1 = ARGV[0]
+lang2 = ARGV[1]
+debugger
+text = ARGV[2..-1].join(",")
+base_url = 'https://www.googleapis.com/language/translate/v2?'
+params = URI.encode_www_form([
+                              ['q',text],
+                              ['source',lang1],
+                              ['target',lang2]
+                             ])
+url = base_url + params
+debugger
+uri = URI(url)
+content = Net::HTTP.get(uri)
+puts content
