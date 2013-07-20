@@ -6,9 +6,9 @@ alias rm='rm -i'
 alias ll='ls -l'
 alias rgrep='grep -r'
 alias s='python -m SimpleHTTPServer'
+alias emacs='emacs -nw'
 alias ec='emacsclient -t -a ""'
 alias gfw='ssh -D 9999 xiang@sutifang.com'
-alias goa="python $HOME/Tools/goagent-1.0/goagent/local/proxy.py"
 
 # enable the color when run ls
 export CLICOLOR=1
@@ -17,7 +17,7 @@ export CLICOLOR=1
 
 rvm 1.9.2
 
-export PATH=$PATH:$HOME/local/node/bin:/usr/bin:$HOME/Dropbox/selF/Tools
+export PATH=$PATH:$HOME/local/node/bin:/usr/bin:/usr/local/bin:$HOME/Dropbox/selF/Tools
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.

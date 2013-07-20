@@ -13,22 +13,8 @@
 
 ;;;; Add modes start
 
-;; add egg(git)
-;;(require 'git)
-;;(require 'git-blame)
 (add-to-list 'load-path "~/.emacs.d/.site-lisp/egg")
 (require 'egg)
-
-
-;; auto-complete
-;; (add-to-list 'load-path "~/.emacs.d/plugins/auto-complete/")
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete//ac-dict")
-;; (ac-config-default)
-
-;;add ido
-;(require 'ido)
-;(ido-mode t)
 
 ;;add gtags
 (require 'gtags)
@@ -36,9 +22,6 @@
 ;;add yaml mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-
-;; add line number
-;(require 'setnu+)
 
 (add-hook 'dired-load-hook
    (function (lambda() (load "dired-x"))))
@@ -109,20 +92,16 @@
 ;; open recentf-mode
 (recentf-mode 1)
 
-;; javascript mode
-;(autoload 'js2-mode "js2" nil t)
-;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
 ;; sgml
-(add-to-list 'auto-mode-alist (cons  "\\.erb" 'sgml-mode))
+(add-to-list 'auto-mode-alist (cons  "\\.erb" 'html-mode))
 
 ;; rinari
 (add-to-list 'load-path "~/.emacs.d/.site-lisp/rinari")
 (require 'rinari)
-;; When entering rinari-minor-mode, consider also the snippets in the                                                                                        ;; snippet table "rails-mode"                                                                                                                                
-(add-hook 'rinari-minor-mode-hook
-          '(lambda ()
-             (setq yas/mode-symbol 'rails-mode)))
+;; When entering rinari-minor-mode, consider also the snippets in the                                                                                        ;; snippet table "rails-mode"
+;(add-hook 'rinari-minor-mode-hook
+;          '(lambda ()
+;             (setq yas/mode-symbol 'rails-mode)))
 
 ;; zencoding
 (require 'zencoding-mode)
@@ -135,9 +114,11 @@
 
 ;;;; Self customize start
 
+;;;color
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
 ;;self utilization
 (load "mars.el")
-;(load "my_emacs_abbrev")
 
 ;;alias
 (defalias 'list-buffers 'ibuffer)
@@ -171,10 +152,7 @@
 ; re-map alt-x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 
-(setq tab-width 2)
 (setq make-backup-files nil)
-;(menu-bar-mode nil)
-
 
 (autoload 'ediff-buffers "ediff" "Intelligent Emacs interface to diff" t)
 (autoload 'ediff-files "ediff" "Intelligent Emacs interface to diff" t)
@@ -183,6 +161,15 @@
 
 ;; make #! scripts executable after saving them
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+
+;; For mobile org
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/Dropbox/notes")
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/Dropbox/notes/index.org")
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/notes/MobileOrg")
 
 ;; Meta
 (global-set-key "\M- " 'set-mark-command)
@@ -206,15 +193,6 @@
 (auto-image-file-mode)
 (setq fill-column 70)
 
-;;使用易码肆24内嵌的功能：
-(require 'electric)
-;;编辑时智能缩进，类似于C-j的效果——这个C-j中，zencoding和electric-pair-mode冲突
-(electric-indent-mode t)
-;;系统本身内置的智能自动补全括号
-(electric-pair-mode t)
-;;特定条件下插入新行
-(electric-layout-mode t)
-
 ;; add yasnippet
 (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
@@ -223,6 +201,12 @@
 
 ;; Show trailing whitespace
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" default)))
+ '(org-agenda-files (quote ("~/Dropbox/notes/inbox.org")))
  '(show-trailing-whitespace t))
 
 (setq tab-width 2)
@@ -235,5 +219,3 @@
 
 ;; All done
 (message "All done, %s%s" (user-login-name) ".")
-
-
