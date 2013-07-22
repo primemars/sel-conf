@@ -1,28 +1,18 @@
-# .bashrc
+export SVN_EDITOR=emacs
 
-# User specific aliases and functions
-
+# command alias
 alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias ls='ls --color=tty'
-alias ec='emacsclient -t'
+alias ll='ls -l'
+alias rgrep='grep -r'
+alias s='python -m SimpleHTTPServer'
+alias ec='emacsclient -t -a ""'
+alias ls='ls --color=auto'
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
+export CDPATH=.:/usr/local/maui/
 
-export TERM='screen'
-export SVN_EDITOR='emacs'
-
-set completion-ignore-case on
-unset LESS
-
-#Bash should append rather than overwrite the history
-shopt -s histappend
-#When displaying the prompt, write the previous line to disk
-PROMPT_COMMAND='history -a'
-
-# add maui in the 'cd' command path
-CDPATH='.:/usr/local/maui'
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+export HISTCONTROL=ignoreboth
+export EDITOR='emacsclient -t -a ""'

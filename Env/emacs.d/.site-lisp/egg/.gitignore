@@ -1,0 +1,8 @@
+*.elc
+*~
+.#*
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+.*.d
