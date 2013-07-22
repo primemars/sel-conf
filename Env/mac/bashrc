@@ -1,0 +1,28 @@
+export SVN_EDITOR=emacs
+
+# command alias
+alias sshfs='/Applications/sshfs/bin/mount_sshfs'
+alias rm='rm -i'
+alias ll='ls -l'
+alias rgrep='grep -r'
+alias s='python -m SimpleHTTPServer'
+alias emacs='emacs -nw'
+alias ec='emacsclient -t -a ""'
+alias gfw='ssh -D 9999 xiang@sutifang.com'
+
+# enable the color when run ls
+export CLICOLOR=1
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+
+rvm 1.9.2
+
+export PATH=$PATH:$HOME/local/node/bin:/usr/bin:/usr/local/bin:$HOME/Dropbox/selF/Tools
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+export HISTCONTROL=ignoreboth
+export EDITOR='emacsclient -t -a ""'
+export PS1='\w$ '

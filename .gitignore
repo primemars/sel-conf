@@ -3,3 +3,5 @@ Env/ReviewActions*.xml
 auto-save-list
 .DS_Store
 ac-comphist.dat
+Env/mac/emacs.elc
+Env/mac/emacs.d/.org-id-locations
