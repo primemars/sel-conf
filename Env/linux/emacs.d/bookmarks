@@ -1,0 +1,17 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("Point and mark"
+ (front-context-string . "mark and restore")
+ (rear-context-string . "ns of point and\n")
+ (position . 150442)
+ (filename . "/opt/local/share/info/emacs/eintr")
+ (info-node . "Point and mark")
+ (handler . Info-bookmark-jump))
+("inbox"
+ (filename . "~/Dropbox/notes/inbox.org")
+ (front-context-string . "http://ergoemacs")
+ (rear-context-string . "* Read it later\n")
+ (position . 24531))
+)
